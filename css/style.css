@@ -1,0 +1,12 @@
+.container {
+    width: 1024px;
+    margin: 0 auto;
+}
+body {
+    background-color: #272727;
+    font-family: 'Roboto', sans-serif;
+} 
+
+header .logo {
+    color: #fff;
+}
