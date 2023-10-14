@@ -167,7 +167,12 @@ button {
     margin-bottom: 20px;
     border-radius: 10px;
 }
-
+.gallery__descr {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    padding-top: 20px;
+}
 .gallery__img-box {
     min-height: 320px;
 }
