@@ -9,12 +9,10 @@ const userInputArr = []
 
 function openModal(){
     modal.classList.toggle('show')
-    // document.body.style.overflow = 'hidden'
 }
 
 function closeModal() {
     modal.classList.toggle('show')
-    // document.body.style.overflow = ''
 }
 
 addBtn.addEventListener('click', openModal)
@@ -25,8 +23,6 @@ modal.addEventListener('click', (e) => {
         closeModal()
     }
 })
-// localStorage.clear()
-
 
 function setLocalStorage() {
     // localStorage.clear()
@@ -66,7 +62,7 @@ function renderCard() {
     )
 }
 
-function getNoteTemplate(city, urlImg) {
+function getNoteTemplate(city, urlImg, flag) {
     return `
     <div class="gallery__item">
         <div class="gallery__img-box">
@@ -75,7 +71,7 @@ function getNoteTemplate(city, urlImg) {
         <div class="gallery__descr">
             <div class="gallery__title">${city}</div>
             <div class="gallery__like">
-                <i data-heart class="icon-heart-empty"></i>
+                <i data-heart ${!flag ? 'class="icon-heart-empty"': 'class="icon-heart"'}></i>
             </div>
         </div>
     </div>
@@ -92,7 +88,7 @@ function startRender() {
 
             boxForRender.insertAdjacentHTML(
                 'beforeend', 
-                getNoteTemplate(key, fromKey.url)
+                getNoteTemplate(key, fromKey.url, fromKey.like)
             )
             
         }
@@ -112,9 +108,25 @@ const like = document.querySelectorAll('i')
 
 const body = document.querySelector('body')
 body.addEventListener('click', (e) => {
+    
     if(e.target.getAttribute('data-heart') == '') {
         e.target.classList.toggle('icon-heart')
+        // получаем родителя кликаемого элемента, и его значение, для того чтоб найти в localstorage 
+        let temp = e.target.parentElement.previousElementSibling.textContent
+        console.log(temp);
+        let getTemp = localStorage.getItem(`${temp}`)
+        let changeTemp = JSON.parse(getTemp)
+
+        if(changeTemp.like == false) {
+            console.log('test1');
+            changeTemp.like = true
+        } else if(changeTemp.like == true) {
+            console.log('test2');
+            changeTemp.like = false
+        }
         
+        console.log(getTemp);
+        console.log(changeTemp);
     }
 })
 // localStorage.clear()
